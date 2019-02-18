@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: mydns-update
+  labels:
+    cronjob: mydns-update
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name:  mydns-update
+            image: miaulne/mydns-update
+            env:
+              - name: USER
+                value: user
+              - name: PASSWORD
+                value: password
+          restartPolicy: OnFailure
+
